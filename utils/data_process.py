@@ -47,11 +47,3 @@ class PointCloudDataset(data.Dataset):
 
     def __len__(self):
         return len(self.datapath)
-
-'''if __name__ == '__main__':
-    # Example usage
-    root_path = '/home/zliu/Desktop/IVP_Final/final_project/data/train/50002_chicken_wings'  # Replace with the path to your dataset
-    dataset = PointCloudDataset(root=root_path)
-    print('len:', len(dataset))
-    point_set, seg = dataset[0]
-    print('ps.size():', point_set.size(), point_set.type(), seg.size(), seg.type())'''

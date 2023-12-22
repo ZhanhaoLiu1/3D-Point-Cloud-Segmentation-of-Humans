@@ -7,7 +7,7 @@ import torch.nn.parallel
 import torch.utils.data
 from torch.autograd import Variable
 from utils.data_process import PointCloudDataset
-from utils.PointNet_model import PointNetDenseCls
+from utils.Hybrid_model import HybridDenseCls
 import torch.nn.functional as F
 from tqdm import tqdm
 import numpy as np
@@ -36,7 +36,7 @@ testdataloader = torch.utils.data.DataLoader(
     test_dataset, batch_size=opt.batchSize, shuffle=True)
 
 # Load model
-classifier = PointNetDenseCls(k=14)  # Replace 14 with the number of classes
+classifier = HybridDenseCls(k=14)  # Replace 14 with the number of classes
 classifier.load_state_dict(torch.load(opt.model))
 classifier.cuda()
 classifier.eval()
@@ -94,8 +94,8 @@ for i, data in enumerate(test_dataloader, 0):
 # Calculate, log test loss and accuracy
 avg_test_loss = total_test_loss / len(test_dataloader)
 test_accuracy = total_correct / total_tested
-print('[Epoch %d] Test Loss: %f, Accuracy: %f' % (epoch, avg_test_loss, test_accuracy))
-        
+print('Test Loss: %f, Accuracy: %f' % (avg_test_loss, test_accuracy))
+
 # Calculate IoU for each class and mean IoU
 ious = []
 for class_id in range(14):  # Replace 14 with the number of classes

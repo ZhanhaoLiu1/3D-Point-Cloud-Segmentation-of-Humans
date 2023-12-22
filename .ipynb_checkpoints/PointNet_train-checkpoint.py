@@ -6,7 +6,7 @@ import torch
 import torch.nn.parallel
 import torch.optim as optim
 import torch.utils.data
-from utils.Hybryd_model import HybrydDenseCls
+from utils.PointNet_model import PointNetDenseCls
 import torch.nn.functional as F
 from tqdm import tqdm
 import numpy as np
@@ -51,7 +51,7 @@ logging.basicConfig(filename=log_filename, level=logging.INFO, format='%(asctime
 def log_info(message):
     print(message)
     logging.info(message)
-
+    
 log_info(str(opt))
 os.environ['CUDA_LAUNCH_BLOCKING'] = '1'
 # Seed setup
@@ -89,8 +89,8 @@ num_classes = 14
 print('classes', num_classes)
 
 # Model setup
-classifier = HybrydDenseCls(k=num_classes, feature_transform=opt.feature_transform)
-best_classifier = HybrydDenseCls(k=num_classes, feature_transform=opt.feature_transform)
+classifier = PointNetDenseCls(k=num_classes, feature_transform=opt.feature_transform)
+best_classifier = PointNetDenseCls(k=num_classes, feature_transform=opt.feature_transform)
 if opt.model != '':
     classifier.load_state_dict(torch.load(opt.model))
 
@@ -160,14 +160,14 @@ for epoch in range(opt.nepoch):
             avg_test_loss = test_loss / 10
             test_accuracy = correct.item() / total
             log_info('Interim [%d: %d/%d] test loss: %f accuracy: %f' % (epoch, i, num_batch, avg_test_loss, test_accuracy))
-            # Save the model if it has the best test accuracy so far
+             # Save the model if it has the best test accuracy so far
             if test_accuracy > best_test_accuracy:
                 best_test_accuracy = test_accuracy
                 best_model_path = '%s/models/best_seg_model_%s_%d.pth' % (opt.out, 'body', epoch)
                 best_classifier = classifier
                 torch.save(classifier.state_dict(), best_model_path)
-                log_info('Saved best model at epoch %d with accuracy %f' % (epoch, test_accuracy))
-
+                log_info('Saved best model at epoch %d with accuracy %f' % (epoch, test_accuracy))       
+            
     # Logging average training loss and accuracy
     avg_train_loss = total_train_loss / num_batch
     avg_train_accuracy = total_correct / total_train_data
@@ -177,7 +177,7 @@ for epoch in range(opt.nepoch):
     total_correct = 0
     total_tested = 0
     total_test_loss = 0
-    classifier = best_classifier
+    classifier = classifier.eval()
     for j, data in enumerate(test_dataloader, 0):
         points, target = data
         points = points.transpose(2, 1)
@@ -196,3 +196,5 @@ for epoch in range(opt.nepoch):
     avg_test_loss = total_test_loss / len(test_dataloader)
     test_accuracy = total_correct / total_tested
     log_info('[Epoch %d] Test Loss: %f, Accuracy: %f' % (epoch, avg_test_loss, test_accuracy))
+
+

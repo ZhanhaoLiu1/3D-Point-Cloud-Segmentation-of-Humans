@@ -132,32 +132,8 @@ def data_gen(file_path,label):
 
 if __name__ == '__main__':
     train_path = 'data/train_data/train_list.json'
-    test_path = '/home/zliu/Desktop/IVP_Final/dataset/test_list.json'
+    test_path = 'dataset/test_list.json'
 
     data_gen(train_path,'train')
-    #data_gen(test_path,'test')
-
-
-    # Define your colors array here
-    colors = np.array(
-        [[237, 109, 82, 255],
-        [242, 169, 59, 255],
-        [69, 142, 247, 255],
-        [96, 177, 119, 255],
-        [103, 91, 198, 255],
-        [224, 135, 232, 255],
-        [128, 128, 128, 255],
-        [34, 23, 124, 255],
-        [172, 24, 56, 255],
-        [243, 68, 72, 255],
-        [44, 99, 198, 255],
-        [237, 109, 82, 255],
-        [242, 169, 59, 255],
-        [69, 142, 247, 255]],
-        dtype=np.float64
-    ) / 255
-
-    #process_folders_parallel(D.input_dir, D.output_dir, colors)
-    
-
+    data_gen(test_path,'test')
 

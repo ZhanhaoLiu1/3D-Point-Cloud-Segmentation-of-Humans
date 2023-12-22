@@ -1,7 +1,7 @@
 import torch
 import numpy as np
 import matplotlib.pyplot as plt
-from utils.Hybryd_model import HybrydDenseCls  # Import your model class
+from utils.Hybrid_model import HybridDenseCls  # Import your model class
 from utils.data_process import PointCloudDataset  # Import your data processing utilities
 from mpl_toolkits.mplot3d import Axes3D
 
@@ -32,7 +32,7 @@ def draw_points(data, classes, file_path, colors):
 # Load the trained model
 model_path = 'res/PointNet/best_seg_model_body_2.pth'
 num_classes = 14  # Replace with your number of classes
-model = HybrydDenseCls(k=num_classes)
+model = HybridDenseCls(k=num_classes)
 model.load_state_dict(torch.load(model_path))
 model.cuda()
 model.eval()
