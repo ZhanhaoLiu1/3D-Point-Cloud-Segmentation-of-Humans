@@ -1,7 +1,7 @@
 import torch
 import numpy as np
 import matplotlib.pyplot as plt
-from PointNet_model import PointNetDenseCls  # Import your model class
+from utils.PointNet_model import PointNetDenseCls  # Import your model class
 from utils.data_process import PointCloudDataset  # Import your data processing utilities
 from mpl_toolkits.mplot3d import Axes3D
 

@@ -7,7 +7,7 @@ import torch.nn.parallel
 import torch.utils.data
 from torch.autograd import Variable
 from utils.data_process import PointCloudDataset
-from PointNet_model import PointNetDenseCls
+from utils.PointNet_model import PointNetDenseCls
 import torch.nn.functional as F
 from tqdm import tqdm
 import numpy as np

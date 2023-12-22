@@ -7,7 +7,7 @@ import torch.nn.parallel
 import torch.utils.data
 from torch.autograd import Variable
 from utils.data_process import PointCloudDataset
-from model import PointNetDenseCls
+from utils.Hybryd_model import HybrydDenseCls
 import torch.nn.functional as F
 from tqdm import tqdm
 import numpy as np
@@ -36,7 +36,7 @@ testdataloader = torch.utils.data.DataLoader(
     test_dataset, batch_size=opt.batchSize, shuffle=True)
 
 # Load model
-classifier = PointNetDenseCls(k=14)  # Replace 14 with the number of classes
+classifier = HybrydDenseCls(k=14)  # Replace 14 with the number of classes
 classifier.load_state_dict(torch.load(opt.model))
 classifier.cuda()
 classifier.eval()

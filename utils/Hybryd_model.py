@@ -179,7 +179,7 @@ class PointNetfeat(nn.Module):
 #             print(x.shape)
             return torch.cat([x, pointfeat], 1), trans, trans_feat
 
-class PointNetDenseCls(nn.Module):
+class HybrydDenseCls(nn.Module):
     def __init__(self, k = 14, feature_transform=False):
         super(PointNetDenseCls, self).__init__()
         self.k = k

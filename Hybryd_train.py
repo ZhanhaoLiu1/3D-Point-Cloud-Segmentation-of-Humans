@@ -6,7 +6,7 @@ import torch
 import torch.nn.parallel
 import torch.optim as optim
 import torch.utils.data
-from model import PointNetDenseCls
+from utils.Hybryd_model import HybrydDenseCls
 import torch.nn.functional as F
 from tqdm import tqdm
 import numpy as np
@@ -89,8 +89,8 @@ num_classes = 14
 print('classes', num_classes)
 
 # Model setup
-classifier = PointNetDenseCls(k=num_classes, feature_transform=opt.feature_transform)
-best_classifier = PointNetDenseCls(k=num_classes, feature_transform=opt.feature_transform)
+classifier = HybrydDenseCls(k=num_classes, feature_transform=opt.feature_transform)
+best_classifier = HybrydDenseCls(k=num_classes, feature_transform=opt.feature_transform)
 if opt.model != '':
     classifier.load_state_dict(torch.load(opt.model))
 
